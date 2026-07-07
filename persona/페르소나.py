@@ -12,11 +12,14 @@ sys.stderr.reconfigure(encoding='utf-8', errors='replace')
 from playwright.sync_api import sync_playwright
 from google import genai
 from google.genai import types
+from dotenv import load_dotenv
 
 # ==========================================
 # 1. API 키 및 기본 설정
 # ==========================================
 import os
+
+load_dotenv()  # 같은 폴더의 .env 파일을 읽어서 환경변수로 등록
 
 GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
