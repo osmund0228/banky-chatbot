@@ -6,7 +6,7 @@
 
 ## 데모 영상
 
-- 계좌 개설 데모: https://youtu.be/DQAWZhw36Ek
+- 계좌 개설 데모: https://drive.google.com/file/d/174QI-FJngHqOCLydkizM68wDtW9eVcMN/view?usp=drive_link
 - 해외 송금 데모: https://youtu.be/LCpXjMtz130
 - 일반 채팅 데모: https://youtu.be/verNWZtXRYA
 
