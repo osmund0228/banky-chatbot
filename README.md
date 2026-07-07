@@ -6,7 +6,7 @@
 
 ## 데모 영상
 
-- 계좌 개설 데모: 가상 페르소나 신분증 이미지로 인해 유튜브 정책상 링크가 막혀 유튜브 링크로 제공이 불가한 점 양해 부탁드립니다.
+- 계좌 개설 데모: https://youtu.be/DQAWZhw36Ek
 - 해외 송금 데모: https://youtu.be/LCpXjMtz130
 - 일반 채팅 데모: https://youtu.be/verNWZtXRYA
 
