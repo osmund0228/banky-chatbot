@@ -15,9 +15,9 @@
 ## 데모
 
 - 시연 영상: 
-  - 계좌 개설 데모: https://drive.google.com/file/d/174QI-FJngHqOCLydkizM68wDtW9eVcMN/view?usp=drive_link
-  - 해외 송금 데모: https://youtu.be/LCpXjMtz130
-  - 일반 채팅 데모: https://youtu.be/verNWZtXRYA
+  - 계좌 개설: https://drive.google.com/file/d/174QI-FJngHqOCLydkizM68wDtW9eVcMN/view?usp=drive_link
+  - 해외 송금: https://youtu.be/LCpXjMtz130
+  - 일반 채팅: https://youtu.be/verNWZtXRYA
 
 (Colab GPU가 필요한 구조라 상시 라이브 배포는 없고, 로컬 Docker 패키지로 직접 체험 가능합니다 — 아래 Getting Started 참고)
 
