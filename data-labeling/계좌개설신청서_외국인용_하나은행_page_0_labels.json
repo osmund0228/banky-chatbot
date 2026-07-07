@@ -1,0 +1,443 @@
+[
+    {
+        "label": "req_customer_name",
+        "x_min": 130,
+        "y_min": 170,
+        "x_max": 610,
+        "y_max": 207
+    },
+    {
+        "label": "req_customer_birth_date",
+        "x_min": 697,
+        "y_min": 169,
+        "x_max": 850,
+        "y_max": 208
+    },
+    {
+        "label": "req_customer_mobile_phone",
+        "x_min": 427,
+        "y_min": 208,
+        "x_max": 602,
+        "y_max": 242
+    },
+    {
+        "label": "opt_customer_email",
+        "x_min": 427,
+        "y_min": 243,
+        "x_max": 655,
+        "y_max": 276
+    },
+    {
+        "label": "req_customer_address_home",
+        "x_min": 427,
+        "y_min": 276,
+        "x_max": 740,
+        "y_max": 308
+    },
+    {
+        "label": "opt_customer_address_office",
+        "x_min": 427,
+        "y_min": 308,
+        "x_max": 741,
+        "y_max": 344
+    },
+    {
+        "label": "opt_customer_phone_home",
+        "x_min": 427,
+        "y_min": 344,
+        "x_max": 742,
+        "y_max": 377
+    },
+    {
+        "label": "opt_customer_phone_office",
+        "x_min": 427,
+        "y_min": 377,
+        "x_max": 741,
+        "y_max": 412
+    },
+    {
+        "label": "req_product_name",
+        "x_min": 63,
+        "y_min": 539,
+        "x_max": 175,
+        "y_max": 569
+    },
+    {
+        "label": "req_enrollment_amount",
+        "x_min": 241,
+        "y_min": 539,
+        "x_max": 319,
+        "y_max": 568
+    },
+    {
+        "label": "opt_initial_withdrawal_account",
+        "x_min": 287,
+        "y_min": 834,
+        "x_max": 420,
+        "y_max": 854
+    },
+    {
+        "label": "opt_initial_withdrawal_amount",
+        "x_min": 540,
+        "y_min": 834,
+        "x_max": 614,
+        "y_max": 852
+    },
+    {
+        "label": "req_confirm_info_inquiry_sig",
+        "x_min": 740,
+        "y_min": 540,
+        "x_max": 848,
+        "y_max": 582
+    },
+    {
+        "label": "req_confirm_group_share_sig",
+        "x_min": 738,
+        "y_min": 633,
+        "x_max": 848,
+        "y_max": 673
+    },
+    {
+        "label": "req_confirm_product_explain_sig",
+        "x_min": 741,
+        "y_min": 725,
+        "x_max": 848,
+        "y_max": 767
+    },
+    {
+        "label": "req_applicant_signature_p0",
+        "x_min": 709,
+        "y_min": 880,
+        "x_max": 847,
+        "y_max": 912
+    },
+    {
+        "label": "req_app_month_p0",
+        "x_min": 498,
+        "y_min": 902,
+        "x_max": 519,
+        "y_max": 917
+    },
+    {
+        "label": "req_app_day_p0",
+        "x_min": 544,
+        "y_min": 900,
+        "x_max": 574,
+        "y_max": 915
+    },
+    {
+        "label": "req_app_year_p0",
+        "x_min": 590,
+        "y_min": 900,
+        "x_max": 628,
+        "y_max": 914
+    },
+    {
+        "label": "opt_group_phone_type_smart",
+        "x_min": 603,
+        "y_min": 210,
+        "x_max": 613,
+        "y_max": 223
+    },
+    {
+        "label": "opt_group_phone_type_non_smart",
+        "x_min": 641,
+        "y_min": 211,
+        "x_max": 652,
+        "y_max": 223
+    },
+    {
+        "label": "opt_group_phone_type_budget",
+        "x_min": 699,
+        "y_min": 210,
+        "x_max": 710,
+        "y_max": 223
+    },
+    {
+        "label": "opt_group_mobile_carrier_skt",
+        "x_min": 604,
+        "y_min": 230,
+        "x_max": 612,
+        "y_max": 238
+    },
+    {
+        "label": "opt_group_mobile_carrier_lgu",
+        "x_min": 636,
+        "y_min": 230,
+        "x_max": 646,
+        "y_max": 239
+    },
+    {
+        "label": "opt_group_mobile_carrier_kt",
+        "x_min": 676,
+        "y_min": 230,
+        "x_max": 686,
+        "y_max": 239
+    },
+    {
+        "label": "opt_group_mobile_carrier_other",
+        "x_min": 708,
+        "y_min": 231,
+        "x_max": 718,
+        "y_max": 240
+    },
+    {
+        "label": "opt_no_change_customer_info",
+        "x_min": 759,
+        "y_min": 219,
+        "x_max": 769,
+        "y_max": 232
+    },
+    {
+        "label": "opt_group_mailing_to_home",
+        "x_min": 430,
+        "y_min": 425,
+        "x_max": 441,
+        "y_max": 437
+    },
+    {
+        "label": "opt_group_mailing_to_office",
+        "x_min": 470,
+        "y_min": 425,
+        "x_max": 481,
+        "y_max": 436
+    },
+    {
+        "label": "opt_group_mailing_to_none",
+        "x_min": 509,
+        "y_min": 425,
+        "x_max": 519,
+        "y_max": 436
+    },
+    {
+        "label": "opt_group_calling_to_home",
+        "x_min": 628,
+        "y_min": 417,
+        "x_max": 640,
+        "y_max": 429
+    },
+    {
+        "label": "opt_group_calling_to_office",
+        "x_min": 672,
+        "y_min": 418,
+        "x_max": 684,
+        "y_max": 430
+    },
+    {
+        "label": "opt_group_calling_to_mobile",
+        "x_min": 629,
+        "y_min": 434,
+        "x_max": 639,
+        "y_max": 445
+    },
+    {
+        "label": "opt_group_calling_to_none",
+        "x_min": 672,
+        "y_min": 432,
+        "x_max": 683,
+        "y_max": 443
+    },
+    {
+        "label": "opt_group_occ_salaried",
+        "x_min": 430,
+        "y_min": 450,
+        "x_max": 441,
+        "y_max": 463
+    },
+    {
+        "label": "opt_group_occ_professional",
+        "x_min": 517,
+        "y_min": 450,
+        "x_max": 529,
+        "y_max": 463
+    },
+    {
+        "label": "opt_group_occ_business",
+        "x_min": 584,
+        "y_min": 450,
+        "x_max": 594,
+        "y_max": 462
+    },
+    {
+        "label": "opt_group_occ_public",
+        "x_min": 430,
+        "y_min": 464,
+        "x_max": 440,
+        "y_max": 476
+    },
+    {
+        "label": "opt_group_occ_pensioner",
+        "x_min": 510,
+        "y_min": 464,
+        "x_max": 522,
+        "y_max": 477
+    },
+    {
+        "label": "opt_group_occ_homemaker",
+        "x_min": 573,
+        "y_min": 465,
+        "x_max": 585,
+        "y_max": 477
+    },
+    {
+        "label": "opt_group_occ_student",
+        "x_min": 644,
+        "y_min": 465,
+        "x_max": 655,
+        "y_max": 477
+    },
+    {
+        "label": "opt_group_occ_other",
+        "x_min": 696,
+        "y_min": 465,
+        "x_max": 709,
+        "y_max": 477
+    },
+    {
+        "label": "req_agree_product_guide_1",
+        "x_min": 120,
+        "y_min": 598,
+        "x_max": 128,
+        "y_max": 607
+    },
+    {
+        "label": "req_agree_terms_1",
+        "x_min": 206,
+        "y_min": 599,
+        "x_max": 214,
+        "y_max": 606
+    },
+    {
+        "label": "req_agree_contract_1",
+        "x_min": 315,
+        "y_min": 599,
+        "x_max": 322,
+        "y_max": 607
+    },
+    {
+        "label": "req_agree_product_guide_2",
+        "x_min": 120,
+        "y_min": 687,
+        "x_max": 128,
+        "y_max": 698
+    },
+    {
+        "label": "req_agree_terms_2",
+        "x_min": 206,
+        "y_min": 688,
+        "x_max": 214,
+        "y_max": 698
+    },
+    {
+        "label": "req_agree_contract_2",
+        "x_min": 314,
+        "y_min": 688,
+        "x_max": 322,
+        "y_max": 696
+    },
+    {
+        "label": "req_agree_product_guide_3",
+        "x_min": 121,
+        "y_min": 781,
+        "x_max": 129,
+        "y_max": 789
+    },
+    {
+        "label": "req_agree_terms_3",
+        "x_min": 205,
+        "y_min": 780,
+        "x_max": 215,
+        "y_max": 789
+    },
+    {
+        "label": "req_agree_contract_3",
+        "x_min": 315,
+        "y_min": 781,
+        "x_max": 322,
+        "y_max": 790
+    },
+    {
+        "label": "req_agree_financial_info_inquiry",
+        "x_min": 54,
+        "y_min": 877,
+        "x_max": 59,
+        "y_max": 886
+    },
+    {
+        "label": "req_agree_set_off",
+        "x_min": 54,
+        "y_min": 887,
+        "x_max": 60,
+        "y_max": 895
+    },
+    {
+        "label": "req_agree_customer_info_policy",
+        "x_min": 54,
+        "y_min": 895,
+        "x_max": 58,
+        "y_max": 902
+    },
+    {
+        "label": "opt_product_name_2",
+        "x_min": 63,
+        "y_min": 630,
+        "x_max": 176,
+        "y_max": 658
+    },
+    {
+        "label": "opt_enrollment_amount_2",
+        "x_min": 241,
+        "y_min": 630,
+        "x_max": 319,
+        "y_max": 657
+    },
+    {
+        "label": "opt_product_name_3",
+        "x_min": 62,
+        "y_min": 719,
+        "x_max": 177,
+        "y_max": 750
+    },
+    {
+        "label": "opt_enrollment_amount_3",
+        "x_min": 241,
+        "y_min": 719,
+        "x_max": 319,
+        "y_max": 751
+    },
+    {
+        "label": "opt_group_housing_area_85_less",
+        "x_min": 569,
+        "y_min": 817,
+        "x_max": 582,
+        "y_max": 830
+    },
+    {
+        "label": "opt_group_housing_area_102_less",
+        "x_min": 624,
+        "y_min": 818,
+        "x_max": 634,
+        "y_max": 830
+    },
+    {
+        "label": "opt_group_housing_area_135_less",
+        "x_min": 683,
+        "y_min": 817,
+        "x_max": 693,
+        "y_max": 829
+    },
+    {
+        "label": "opt_group_housing_area_over_135",
+        "x_min": 793,
+        "y_min": 818,
+        "x_max": 804,
+        "y_max": 830
+    },
+    {
+        "label": "opt_linked_withdrawal_request",
+        "x_min": 802,
+        "y_min": 850,
+        "x_max": 813,
+        "y_max": 862
+    }
+]

@@ -1,0 +1,254 @@
+[
+  {
+    "label": "req_sender_name_eng",
+    "x_min": 293,
+    "y_min": 219,
+    "x_max": 610,
+    "y_max": 249
+  },
+  {
+    "label": "opt_sender_name_kor",
+    "x_min": 294,
+    "y_min": 249,
+    "x_max": 612,
+    "y_max": 277
+  },
+  {
+    "label": "req_sender_id_no",
+    "x_min": 211,
+    "y_min": 279,
+    "x_max": 497,
+    "y_max": 311
+  },
+  {
+    "label": "req_sender_account_no",
+    "x_min": 653,
+    "y_min": 277,
+    "x_max": 868,
+    "y_max": 312
+  },
+  {
+    "label": "req_sender_address",
+    "x_min": 212,
+    "y_min": 311,
+    "x_max": 659,
+    "y_max": 340
+  },
+  {
+    "label": "req_sender_phone",
+    "x_min": 682,
+    "y_min": 313,
+    "x_max": 869,
+    "y_max": 340
+  },
+  {
+    "label": "req_remittance_currency",
+    "x_min": 306,
+    "y_min": 373,
+    "x_max": 592,
+    "y_max": 394
+  },
+  {
+    "label": "req_remittance_amount",
+    "x_min": 301,
+    "y_min": 395,
+    "x_max": 594,
+    "y_max": 418
+  },
+  {
+    "label": "req_purpose_of_payment",
+    "x_min": 212,
+    "y_min": 781,
+    "x_max": 868,
+    "y_max": 813
+  },
+  {
+    "label": "opt_details_of_payment",
+    "x_min": 213,
+    "y_min": 813,
+    "x_max": 868,
+    "y_max": 840
+  },
+  {
+    "label": "opt_reimbursing_bank_swift",
+    "x_min": 342,
+    "y_min": 449,
+    "x_max": 868,
+    "y_max": 480
+  },
+  {
+    "label": "opt_reimbursing_bank_name",
+    "x_min": 343,
+    "y_min": 480,
+    "x_max": 868,
+    "y_max": 511
+  },
+  {
+    "label": "req_beneficiary_bank_name",
+    "x_min": 344,
+    "y_min": 511,
+    "x_max": 869,
+    "y_max": 540
+  },
+  {
+    "label": "opt_beneficiary_bank_address",
+    "x_min": 343,
+    "y_min": 540,
+    "x_max": 868,
+    "y_max": 569
+  },
+  {
+    "label": "req_beneficiary_bank_city",
+    "x_min": 414,
+    "y_min": 570,
+    "x_max": 580,
+    "y_max": 598
+  },
+  {
+    "label": "req_beneficiary_bank_country",
+    "x_min": 674,
+    "y_min": 569,
+    "x_max": 868,
+    "y_max": 599
+  },
+  {
+    "label": "req_beneficiary_bank_code",
+    "x_min": 342,
+    "y_min": 600,
+    "x_max": 869,
+    "y_max": 630
+  },
+  {
+    "label": "req_beneficiary_account_no",
+    "x_min": 343,
+    "y_min": 631,
+    "x_max": 868,
+    "y_max": 662
+  },
+  {
+    "label": "req_beneficiary_name",
+    "x_min": 343,
+    "y_min": 662,
+    "x_max": 627,
+    "y_max": 692
+  },
+  {
+    "label": "req_relation_to_applicant",
+    "x_min": 794,
+    "y_min": 663,
+    "x_max": 868,
+    "y_max": 690
+  },
+  {
+    "label": "req_beneficiary_address",
+    "x_min": 343,
+    "y_min": 692,
+    "x_max": 868,
+    "y_max": 723
+  },
+  {
+    "label": "req_beneficiary_city",
+    "x_min": 413,
+    "y_min": 724,
+    "x_max": 582,
+    "y_max": 750
+  },
+  {
+    "label": "req_beneficiary_country",
+    "x_min": 674,
+    "y_min": 724,
+    "x_max": 869,
+    "y_max": 750
+  },
+  {
+    "label": "req_withdrawal_account_no",
+    "x_min": 153,
+    "y_min": 974,
+    "x_max": 391,
+    "y_max": 993
+  },
+  {
+    "label": "req_withdrawal_account_name",
+    "x_min": 533,
+    "y_min": 973,
+    "x_max": 702,
+    "y_max": 994
+  },
+  {
+    "label": "req_withdrawal_signature",
+    "x_min": 704,
+    "y_min": 974,
+    "x_max": 829,
+    "y_max": 992
+  },
+  {
+    "label": "req_application_year",
+    "x_min": 665,
+    "y_min": 1000,
+    "x_max": 717,
+    "y_max": 1023
+  },
+  {
+    "label": "req_application_month",
+    "x_min": 726,
+    "y_min": 1001,
+    "x_max": 760,
+    "y_max": 1023
+  },
+  {
+    "label": "req_application_day",
+    "x_min": 770,
+    "y_min": 1002,
+    "x_max": 797,
+    "y_max": 1021
+  },
+  {
+    "label": "req_applicant_signature",
+    "x_min": 558,
+    "y_min": 1028,
+    "x_max": 816,
+    "y_max": 1053
+  },
+  {
+    "label": "req_fee_separate",
+    "x_min": 615,
+    "y_min": 400,
+    "x_max": 627,
+    "y_max": 412
+  },
+  {
+    "label": "req_fee_deducted",
+    "x_min": 745,
+    "y_min": 400,
+    "x_max": 757,
+    "y_max": 412
+  },
+  {
+    "label": "req_fee_our",
+    "x_min": 275,
+    "y_min": 428,
+    "x_max": 287,
+    "y_max": 440
+  },
+  {
+    "label": "req_fee_sha",
+    "x_min": 373,
+    "y_min": 428,
+    "x_max": 385,
+    "y_max": 440
+  },
+  {
+    "label": "req_fee_ben",
+    "x_min": 466,
+    "y_min": 428,
+    "x_max": 478,
+    "y_max": 440
+  },
+  {
+    "label": "req_applicant_name",
+    "x_min": 558,
+    "y_min": 1028,
+    "x_max": 686,
+    "y_max": 1053
+  }
+]

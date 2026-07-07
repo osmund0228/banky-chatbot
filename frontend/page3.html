@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banky Chat</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #b0b0b0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+
+      background: #fff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 48px 32px;
+      flex-shrink: 0;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      font-size: 15px;
+      color: #8E8E93;
+      cursor: pointer;
+      text-align: left;
+      padding: 0;
+      margin-bottom: 20px;
+
+      opacity: 0;
+      transform: translateY(16px);
+      animation: slideUp 0.5s ease forwards 0.1s;
+    }
+
+    .header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 6px;
+
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.5s ease forwards 0.2s;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: #222;
+      line-height: 1.3;
+    }
+
+    .parrot img {
+      width: 50px;
+      height: 70px;
+      border-radius: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #8E8E93;
+      margin-bottom: 28px;
+
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.5s ease forwards 0.3s;
+    }
+
+    .service-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.5s ease forwards 0.4s;
+    }
+
+    .service-btn {
+      width: 100%;
+      padding: 22px 20px;
+      background: #c7c7cc;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 400;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      text-align: left;
+      line-height: 1.4;
+      transition: background 0.2s ease;
+    }
+
+    .service-btn:hover { background: #007AFF; }
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+<div class="phone">
+
+  <button class="back-btn" onclick="window.location.href='page2.html'">‹ Back</button>
+
+  <div class="header">
+    <h1 id="welcome">Welcome,<br>It's Banky Chat.</h1>
+    <div class="parrot">
+      <img src="./Images/banky.png" alt="parrot" />
+    </div>
+  </div>
+
+  <div class="subtitle" id="subtitle">Select the service you want.</div>
+
+  <div class="service-list">
+    <button class="service-btn" id='btn1' onclick="go('account_opening')">Auto-Fill for Account Opening Documents</button>
+    <button class="service-btn" id='btn2' onclick="go('remittance')">Auto-Fill for International Transfer Documents</button>
+    <button class="service-btn" id='btn3' onclick="go('troubleshooting')">General Financial Inquiries</button>
+  </div>
+
+</div>
+
+<script>
+  const translations = {
+    vn: { welcome: "Xin chào,<br>Đây là Banky Chat.", subtitle: "Chọn dịch vụ bạn muốn.", btn1: "Tự động điền tài liệu mở tài khoản", btn2: "Tự động điền tài liệu chuyển tiền quốc tế", btn3: "Tư vấn tài chính chung" },
+    ph: { welcome: "Maligayang pagdating,<br>Ito ay Banky Chat.", subtitle: "Piliin ang serbisyong gusto mo.", btn1: "Auto-Fill para sa Account Opening", btn2: "Auto-Fill para sa International Transfer", btn3: "Pangkalahatang Pagtatanong" },
+    zh: { welcome: "欢迎，<br>这是 Banky Chat。", subtitle: "请选择您需要的服务。", btn1: "自动填写开户文件", btn2: "自动填写国际汇款文件", btn3: "一般金融咨询" },
+    en: { welcome: "Welcome,<br>It's Banky Chat.", subtitle: "Select the service you want.", btn1: "Auto-Fill for Account Opening Documents", btn2: "Auto-Fill for International Transfer Documents", btn3: "General Financial Inquiries" },
+    fr: { welcome: "Bienvenue,<br>C'est Banky Chat.", subtitle: "Sélectionnez le service souhaité.", btn1: "Remplissage - Ouverture de compte", btn2: "Remplissage - Virement international", btn3: "Renseignements financiers" },
+    th: { welcome: "ยินดีต้อนรับ,<br>นี่คือ Banky Chat", subtitle: "เลือกบริการที่คุณต้องการ", btn1: "กรอกเอกสารเปิดบัญชีอัตโนมัติ", btn2: "กรอกเอกสารโอนเงินต่างประเทศอัตโนมัติ", btn3: "สอบถามทั่วไปด้านการเงิน" },
+    ja: { welcome: "ようこそ、<br>Banky Chatです。", subtitle: "ご希望のサービスをお選びください。", btn1: "口座開設書類の自動入力", btn2: "海外送金書類の自動入力", btn3: "一般的な金融相談" },
+  };
+
+  const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+  const t = translations[lang];
+
+  document.getElementById('welcome').innerHTML = t.welcome;
+  document.getElementById('subtitle').textContent = t.subtitle;
+  document.getElementById('btn1').textContent = t.btn1;
+  document.getElementById('btn2').textContent = t.btn2;
+  document.getElementById('btn3').textContent = t.btn3;
+
+  function go(scenario) {
+    window.location.href = 'chatting.html?scenario=' + scenario + '&lang=' + lang; // 채팅 화면으로 이어지기
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banky Chat</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      display: flex;
+      height: 100vh;
+      font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      background: #f5f6f8;
+    }
+
+    /* ── 채팅 패널 ── */
+    #chat-panel {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #fff;
+      border-right: 1px solid #e5e7eb;
+    }
+
+    #chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    #header-left { display: flex; align-items: center; gap: 12px; }
+
+    #bot-avatar {
+      width: 40px; height: 40px;
+      background: #eff6ff;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+
+    #header-title { font-weight: 700; font-size: 16px; color: #111; }
+    #header-sub { font-size: 12px; color: #6b7280; margin-top: 2px; }
+
+    #status-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: #ef4444;
+      transition: background 0.3s;
+    }
+
+    #message-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column; 
+      gap: 12px;
+    }
+
+    #empty-state {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 14px;
+      margin-top: 80px;
+    }
+
+    .message-row {
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    .message-row.user { justify-content: flex-end; }
+    .message-row.bot  { justify-content: flex-start; }
+
+    .bot-icon { font-size: 22px; flex-shrink: 0; }
+
+    .bubble {
+      max-width: 70%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .bubble.user {
+      background: #2563eb;
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+    .bubble.bot {
+      background: #f3f4f6;
+      color: #111;
+      border-bottom-left-radius: 4px;
+    }
+
+    .sender-name {
+      font-size: 11px;
+      font-weight: 600;
+      opacity: 0.75;
+      margin-bottom: 3px;
+    }
+
+    #complete-banner {
+      display: none;
+      background: #dcfce7;
+      color: #166534;
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+    }
+    /* --- 입력창 --- */
+    #input-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-top: 1px solid #e5e7eb;
+    background: #fff;
+    }
+
+    #user-input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+    resize: none;
+    font-family: inherit;
+    }
+
+    #user-input:focus { border-color: #2563eb; }
+
+    #send-btn {
+    width: 40px;
+    height: 40px;
+    background: #2563eb;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.2s;
+    }
+
+    #send-btn:hover { background: #1d4ed8; }
+
+    /* ── 서식 패널 ── */
+    #form-panel {
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      gap: 12px;
+      overflow-y: auto;
+    }
+
+    #form-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #111;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    #form-empty { font-size: 13px; color: #9ca3af; margin-top: 12px; }
+
+    #form-list { display: flex; flex-direction: column; gap: 8px; }
+
+    .form-row {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      padding: 8px 10px;
+      background: #f9fafb;
+      border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .form-key { font-size: 11px; color: #6b7280; font-weight: 500; }
+    .form-value { font-size: 13px; font-weight: 600; color: #111; }
+    .form-value.empty { color: #aaa; }
+
+    #pdf-btn {
+      display: none;
+      margin-top: auto;
+      padding: 12px;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    /* 선택지 버튼 */
+    .choice-btn {
+      padding: 8px 16px;
+      background: #eff6ff;
+      color: #2563eb;
+      border: 1px solid #2563eb;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .choice-btn:hover { background: #2563eb; color: #fff; }
+
+    #choice-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 8px 16px;
+    }
+
+    #end-banner {
+    display: none;
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 12px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+  }
+  </style>
+</head>
+<body>
+
+<!-- 채팅 패널 -->
+<div id="chat-panel">
+  <div id="chat-header">
+    <div id="header-left">
+      <div id="bot-avatar"><img src="./Images/banky.png" style="width:65%; height:90%; border-radius:12px;" /></div>
+      <div>
+        <div id="header-title" style="cursor:pointer;" onclick="goBack()">Banky Chat</div>
+        <div id="header-sub"></div>
+      </div>
+      <button id="end-btn" style="display:none; padding:6px 12px; background:#ef4444; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:12px;" onclick="endConversation()">대화 종료</button>  
+      <button id="server-btn" style="padding:6px 12px; background:#2563eb; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:12px;" onclick="openServerModal()">⚙️ 서버 설정</button>
+    </div>
+      <div id="status-dot"></div>
+  </div>
+
+  <div id="message-area">
+    <div id="empty-state">페르소나 에이전트 실행을 기다리는 중...</div>
+  </div>
+
+  <div id="complete-banner">✅ 서식 작성 완료 — PDF 버튼이 활성화되었습니다</div>
+
+  <!-- 선택지 버튼 영역 -->
+  <div id="choice-area"></div>
+
+  <!--대화가 종료되었습니다 배너-->
+  <div id="end-banner" style="display:none; background:#fee2e2; color:#991b1b; padding:12px 20px; font-size:13px; font-weight:600; text-align:center;">🔴 대화가 종료되었습니다</div>
+  
+
+  <!-- 백엔드(모델 서버) 주소 입력 모달 -->
+  <div id="server-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+    <div style="background:#fff; padding:24px; border-radius:12px; width:90%; max-width:480px; box-shadow:0 10px 40px rgba(0,0,0,0.2);">
+      <h3 style="margin:0 0 8px; font-size:16px;">챗봇 백엔드(모델 서버) 주소</h3>
+      <p style="margin:0 0 12px; font-size:13px; color:#555; line-height:1.5;">
+        코랩에서 banky 모델 노트북을 실행하면 나오는 주소(예:
+        <code>https://xxxx.trycloudflare.com</code>)를 붙여넣으세요.
+      </p>
+      <input id="server-input" type="text" placeholder="https://xxxx.trycloudflare.com"
+             style="width:100%; padding:10px; border:1px solid #d1d5db; border-radius:8px; font-size:13px; box-sizing:border-box;" />
+      <div style="display:flex; gap:8px; margin-top:16px; justify-content:flex-end;">
+        <button onclick="closeServerModal()" style="padding:8px 16px; background:#e5e7eb; border:none; border-radius:8px; cursor:pointer;">취소</button>
+        <button onclick="saveServerUrl()" style="padding:8px 16px; background:#2563eb; color:#fff; border:none; border-radius:8px; cursor:pointer;">저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!--입력창-->
+  <div id="input-area">
+  <textarea id="user-input" rows="1" placeholder="메시지를 입력하세요..."></textarea>
+  <label for="id-upload" style="cursor:pointer; flex-shrink:0; font-size:20px;">🖼️</label>
+  <input type="file" id="id-upload" accept="image/*" style="display:none;" onchange="uploadIDCard(this)" />
+  <button id="send-btn" onclick="sendUserMessage()">↑</button>
+</div>
+</div>
+
+<!-- 서식 패널 -->
+<div id="form-panel">
+  <div id="form-title">📋 서식</div>
+  <div id="form-empty">대화가 시작되면 서식이 채워집니다</div>
+  <div id="form-list"></div>
+  <button id="pdf-btn" onclick="openSignModal()">📄 PDF 보기</button>
+</div>
+
+<!-- 서명 팝업 -->
+<div id="sign-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000;">
+  <div style="background:#fff; border-radius:16px; padding:24px; display:flex; flex-direction:column; gap:16px; align-items:center;">
+    <div id="sign-title" style="font-weight:700; font-size:16px;">Sign here</div>
+    <canvas id="sign-canvas" width="400" height="200" style="border:1px solid #e5e7eb; border-radius:8px; cursor:crosshair;"></canvas>
+    <div style="display:flex; gap:12px;">
+      <button id="sign-clear-btn" onclick="clearSign()" style="padding:10px 20px; border:1px solid #e5e7eb; border-radius:8px; cursor:pointer; background:#fff;">지우기</button>
+      <button id="sign-confirm-btn" onclick="pdfManager()" style="padding:10px 20px; background:#2563eb; color:#fff; border:none; border-radius:8px; cursor:pointer;">확인 & PDF 다운로드</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── 설정 ──────────────────────────────────────────
+  // 챗봇 백엔드(모델 서버) 주소: 사용자가 화면에서 입력 → localStorage에 저장.
+  // 받는 사람이 자기 코랩 노트북을 실행해 나온 cloudflared 주소를 여기에 넣는다.
+  let CHATBOT_URL = localStorage.getItem("banky_backend_url") || "";
+
+  function openServerModal() {
+    document.getElementById("server-input").value = CHATBOT_URL;
+    document.getElementById("server-modal").style.display = "flex";
+  }
+  function closeServerModal() {
+    document.getElementById("server-modal").style.display = "none";
+  }
+  function saveServerUrl() {
+    let v = document.getElementById("server-input").value.trim().replace(/\/+$/, "");
+    if (v && !/^https?:\/\//.test(v)) v = "https://" + v;
+    CHATBOT_URL = v;
+    localStorage.setItem("banky_backend_url", v);
+    closeServerModal();
+    if (v) {
+      const dot = document.getElementById("status-dot");
+      if (dot) dot.style.background = "#22c55e";
+      alert("백엔드 주소가 저장되었습니다.");
+    }
+  }
+  // 주소 미설정 시 첫 진입에서 모달 자동 표시
+  window.addEventListener("load", () => {
+    if (!CHATBOT_URL) setTimeout(openServerModal, 300);
+  });
+
+  const lang = new URLSearchParams(window.location.search).get('lang') || 'en';
+  // 계좌개설, 해외송금 같은 단어도 선택한 언어에 맞게 번역
+  const scenarioLabels= {
+    vn: { account_opening: "Mở tài khoản", remittance: "Chuyển tiền quốc tế", troubleshooting: "Tư vấn chung" },
+    ph: { account_opening: "Account Opening", remittance: "Remittance", troubleshooting: "General Inquiry" },
+    zh: { account_opening: "开户", remittance: "汇款", troubleshooting: "一般咨询" },
+    en: { account_opening: "Account Opening", remittance: "Remittance", troubleshooting: "General Inquiry" },
+    fr: { account_opening: "Ouverture de compte", remittance: "Virement", troubleshooting: "Renseignements" },
+    th: { account_opening: "เปิดบัญชี", remittance: "โอนเงิน", troubleshooting: "สอบถามทั่วไป" },
+    ja: { account_opening: "口座開設", remittance: "送金", troubleshooting: "一般相談" },
+  };
+  const SCENARIO_LABELS = scenarioLabels[lang] || scenarioLabels['en'];
+
+  // ── 상태 ──────────────────────────────────────────
+  let formState   = {}; // 지금까지 채워진 입력 정보
+  let chatHistory = []; //대화 히스토리
+  let currentScenario = null; // 현재 시나리오 
+  let currentStage = null; // 현재 질문 stage 기억  
+
+  // ── DOM 참조 ──────────────────────────────────────
+  const messageArea   = document.getElementById("message-area"); //html에서 id로 요소 찾아서 변수에 저장
+  const emptyState    = document.getElementById("empty-state");
+  const headerSub     = document.getElementById("header-sub");
+  const formTitle     = document.getElementById("form-title");
+  const formEmpty     = document.getElementById("form-empty");
+  const formList      = document.getElementById("form-list");
+  const completeBanner = document.getElementById("complete-banner");
+  const pdfBtn        = document.getElementById("pdf-btn");
+  const statusDot     = document.getElementById("status-dot");
+  const userInput = document.getElementById("user-input"); // 사용자가 직접 입력할 경우 
+
+  // ---언어 감지-----------------------------------------
+  const langMap = {
+    vn: "Vietnamese",
+    ph: "English", // 필리핀은 영어로 챗봇이 대답하게 하기.
+    zh: "Chinese",
+    en: "English",
+    fr: "French",
+    th: "Thai",
+    ja: "Japanese",
+  };
+  const language = langMap[lang] || "";
+  const scenario = new URLSearchParams(window.location.search).get('scenario');
+
+  // --- 선택한 언어로 번역 ------------------------------------
+  const chattingTranslations = {
+  vn: {
+    formTitle: "📋 Biểu mẫu",
+    emptyState: "Nhập tin nhắn hoặc chạy persona agent.",
+    completeBanner: "✅ Hoàn thành — Nút PDF đã được kích hoạt",
+    formEmpty: "Biểu mẫu sẽ được điền khi cuộc trò chuyện bắt đầu",
+    pdfBtn: "📄 Xem PDF",
+    placeholder: "Nhập tin nhắn...",
+    signTitle: "Ký tên tại đây", 
+    signClear: "Xóa", 
+    signConfirm: "Xác nhận & Tải PDF",
+    endBtn: "Kết thúc cuộc trò chuyện", 
+    endBanner: "🔴 Cuộc trò chuyện đã kết thúc"
+  },
+  ph: {
+    formTitle: "📋 Form",
+    emptyState: "Mag-type ng mensahe o patakbuhin ang persona agent.",
+    completeBanner: "✅ Kumpleto na — Na-activate ang PDF button",
+    formEmpty: "Mapupuno ang form habang nagpapatuloy ang pag-uusap",
+    pdfBtn: "📄 Tingnan ang PDF",
+    placeholder: "Mag-type ng mensahe...",
+    signTitle: "Pumirma dito", 
+    signClear: "Burahin", 
+    signConfirm: "Kumpirmahin & I-download ang PDF",
+    endBtn: "Tapusin ang Usapan", 
+    endBanner: "🔴 Natapos na ang usapan"
+  },
+  zh: {
+    formTitle: "📋 表单",
+    emptyState: "请输入消息或运行角色代理。",
+    completeBanner: "✅ 表单完成 — PDF按钮已激活",
+    formEmpty: "对话开始后将自动填写表单",
+    pdfBtn: "📄 查看PDF",
+    placeholder: "请输入消息...",
+    signTitle: "请在此签名", 
+    signClear: "清除", 
+    signConfirm: "确认 & 下载PDF",
+    endBtn: "结束对话", 
+    endBanner: "🔴 对话已结束"
+  },
+  en: {
+    formTitle: "📋 Form",
+    emptyState: "Type a message or run the persona agent.",
+    completeBanner: "✅ Form complete — PDF button activated",
+    formEmpty: "Form will be filled as conversation progresses",
+    pdfBtn: "📄 View PDF",
+    placeholder: "Type a message...",
+    signTitle: "Sign here", 
+    signClear: "Clear", 
+    signConfirm: "Confirm & Download PDF",
+    endBtn: "End Conversation", 
+    endBanner: "🔴 Conversation has ended"
+  },
+  fr: {
+    formTitle: "📋 Formulaire",
+    emptyState: "Tapez un message ou lancez l'agent persona.",
+    completeBanner: "✅ Formulaire complet — Bouton PDF activé",
+    formEmpty: "Le formulaire sera rempli au fil de la conversation",
+    pdfBtn: "📄 Voir le PDF",
+    placeholder: "Tapez un message...",
+    signTitle: "Signez ici", 
+    signClear: "Effacer", 
+    signConfirm: "Confirmer & Télécharger PDF",
+    endBtn: "Terminer la conversation", 
+    endBanner: "🔴 La conversation est terminée"
+  },
+  th: {
+    formTitle: "📋 แบบฟอร์ม",
+    emptyState: "พิมพ์ข้อความหรือเรียกใช้ persona agent",
+    completeBanner: "✅ แบบฟอร์มเสร็จสมบูรณ์ — ปุ่ม PDF เปิดใช้งานแล้ว",
+    formEmpty: "แบบฟอร์มจะถูกกรอกเมื่อการสนทนาดำเนินไป",
+    pdfBtn: "📄 ดู PDF",
+    placeholder: "พิมพ์ข้อความ...",
+    signTitle: "เซ็นชื่อที่นี่", 
+    signClear: "ลบ", 
+    signConfirm: "ยืนยัน & ดาวน์โหลด PDF",
+    endBtn: "สิ้นสุดการสนทนา", 
+    endBanner: "🔴 การสนทนาสิ้นสุดแล้ว"
+
+  },
+  ja: {
+    formTitle: "📋 フォーム",
+    emptyState: "メッセージを入力するかペルソナエージェントを実行してください。",
+    completeBanner: "✅ フォーム完了 — PDFボタンが有効になりました",
+    formEmpty: "会話が進むにつれてフォームが埋まります",
+    pdfBtn: "📄 PDFを見る",
+    placeholder: "メッセージを入力...",
+    signTitle: "ここにサインしてください", 
+    signClear: "クリア", 
+    signConfirm: "確認 & PDFダウンロード",
+    endBtn: "会話を終了する", 
+    endBanner: "🔴 会話が終了しました"
+  },
+};
+
+  const ct = chattingTranslations[lang] || chattingTranslations['en'];
+  document.getElementById('empty-state').textContent = ct.emptyState;
+  document.getElementById('complete-banner').textContent = ct.completeBanner;
+  document.getElementById('form-empty').textContent = ct.formEmpty;
+  document.getElementById('pdf-btn').textContent = ct.pdfBtn;
+  document.getElementById('user-input').placeholder = ct.placeholder;
+  document.getElementById('form-title').textContent = ct.formTitle;
+  document.getElementById('sign-title').textContent = ct.signTitle;
+  document.getElementById('sign-clear-btn').textContent = ct.signClear;
+  document.getElementById('sign-confirm-btn').textContent = ct.signConfirm;
+  document.getElementById('end-btn').textContent = ct.endBtn;
+  document.getElementById('end-banner').textContent = ct.endBanner;
+
+
+  // --- 현재 시나리오 ------------------------------------
+  if (scenario) currentScenario = scenario;
+  // scenario가 troubleshooting이면 패널 숨기기
+  if (currentScenario === 'troubleshooting') {
+  document.getElementById('form-panel').style.display = 'none';
+  document.getElementById('end-btn').style.display = 'block'; //trouble shooting이면 end-btn 숨기기
+}
+
+  // ── persona/bridge 제거: 사용자가 직접 대화하는 모드 ──
+  // (백엔드 주소가 설정돼 있으면 상태 점등)
+  if (CHATBOT_URL) statusDot.style.background = "#22c55e";
+  // (사용자 직접 진입) URL 파라미터로 받은 시나리오로 헤더/패널 세팅
+  if (currentScenario && SCENARIO_LABELS[currentScenario]) {
+    headerSub.textContent = SCENARIO_LABELS[currentScenario];
+    if (formTitle) formTitle.textContent = `📋 ${SCENARIO_LABELS[currentScenario]}`;
+  }
+
+  // ── 메시지 버블(말풍선) 추가 ──────────────────────────────
+  // 챗봇 호출 공통 함수
+  async function callChatbot(message, scenarioOverride = null) {
+  if (!CHATBOT_URL) { openServerModal(); return; }
+  try {
+    const res = await fetch(`${CHATBOT_URL}/api/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "ngrok-skip-browser-warning": "true"},
+      body: JSON.stringify({ //챗봇에게 보낼 편지(내용물)을 봉투에 담는 과정
+        scenario: scenarioOverride || currentScenario,
+        user_message: message,
+        current_form_state: formState,
+        history: chatHistory,
+        language: language,
+        stage: currentStage || "", // 백엔드에서 현재 답변이 어느 필드에 해당하는지 알려줌.  
+      }),
+    });
+    const chatbotData = await res.json();
+
+    if (chatbotData.updated_form_state) {
+      formState = chatbotData.updated_form_state;
+      renderFormState(formState);
+    }
+
+    chatHistory.push({ role: "user", content: message });
+    chatHistory.push({ role: "assistant", content: chatbotData.bot_reply });
+
+    // stage 업데이트
+    if (chatbotData.stage) currentStage = chatbotData.stage;
+
+    // choices가 있으면 버튼 생성, 그리고 선택지가 없는 질문 오면 버튼 지우기
+    if (chatbotData.choices && chatbotData.choices.length > 0) {
+      renderChoices(chatbotData.choices); // choices는 화면에 보여지는 텍스트 배열 ex) ["정기 입출금","자유예금"]
+    } else {
+      clearChoices();
+    }
+    //
+    addMessage("bot", chatbotData.bot_reply); // 챗봇 응답 화면에 출력
+
+    // quick_links 있으면 바로가기 버튼 표시 -> troubleshooting에서 계좌개설 or 해외송금 화면으로 바로가기
+    if (chatbotData.quick_links && chatbotData.quick_links.length > 0) {
+      renderQuickLinks(chatbotData.quick_links);
+    }
+
+    if (chatbotData.form_complete) {
+      completeBanner.style.display = "block";
+      pdfBtn.style.display = "block";
+    }
+
+    // 신분증 stage이거나 choices 있으면 페르소나 멈추기
+    const isOcrStage = chatbotData.stage === 'id_card' || chatbotData.request_id_card === true;
+    const hasChoices = chatbotData.choices && chatbotData.choices.length > 0;
+
+    if (!isOcrStage && !hasChoices) {
+    }
+
+  }  catch (err) {
+    console.error("챗봇 호출 실패:", err);
+  }
+}
+  //--- 신분증 업로드 ---------------------------------
+  async function uploadIDCard(input) {
+    const file = input.files[0];
+    if (!file) return;
+  
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('language', language); // 언어도 전송
+
+    // 파일 선택 후 이미지 미리보기 채팅창에 표시
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.style.maxWidth = '200px';
+      img.style.borderRadius = '8px';
+
+      const row = document.createElement('div');
+      row.className = 'message-row user';
+      row.appendChild(img);
+      messageArea.appendChild(row);
+      messageArea.scrollTop = messageArea.scrollHeight;
+    };
+    reader.readAsDataURL(file); //
+  
+    try {
+      const res = await fetch(`${CHATBOT_URL}/api/ocr-arc`, {
+        headers: { "ngrok-skip-browser-warning": "true" }, 
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+    
+      if (data.status === "success") {
+        // OCR 결과를 form_state에 반영
+        formState = { ...formState, ...data.data };
+        renderFormState(formState);
+
+        // 백엔드 OCR 완료 메시지 채팅창에 표시
+        addMessage("bot", data.message);
+
+        currentStage = "id_card";
+        await callChatbot("업로드 완료");
+      
+        // 입력창 다시 보이기
+        document.getElementById('user-input').style.display = 'block';
+        document.getElementById('send-btn').style.display = 'block';
+      
+      }
+    } catch (err) {
+      console.error("OCR 업로드 실패:", err);
+    }
+  }
+
+  //--- 챗봇이 선택지 제시했을 때 ------------------
+  // 선택지 버튼 렌더링
+  function renderChoices(choices) {
+    const area = document.getElementById('choice-area'); //id가 choice-area인 요소 찾아서 저장.
+    area.innerHTML = ''; // 이전 버튼 초기화
+    choices.forEach((label, index) => {
+      const btn = document.createElement('button'); //버튼 생성
+      btn.className = 'choice-btn'; //CSS 클래스 적용
+      btn.textContent = label; //버튼 텍스트
+      btn.onclick = () => sendChoice(index + 1, label); //누르면 버튼 전송
+      area.appendChild(btn); // 화면에 추가
+    });
+  }
+
+  // 선택지 버튼 제거
+  function clearChoices() {
+    document.getElementById('choice-area').innerHTML = ''; //선택지 없는 응답 오거나 사용자가 버튼 누른 후의 경우 버튼 제거
+  }
+
+  // 선택지 전송
+  async function sendChoice(number, label) {
+    clearChoices(); // 버튼 지우기
+    addMessage("user", label); // 화면에 선택한 항목 채팅창에 표시
+    await callChatbot(String(number)); // 백엔드에 선택한 선택지를 번호로 전송
+  } // 
+
+  //---사용자 직접 입력(타이핑) 전송---------------------------------------------
+  async function sendUserMessage() {
+    const message = userInput.value.trim();
+    if (!message) return;
+    userInput.value = "";
+    addMessage("user", message);
+    await callChatbot(message);
+}
+
+  // 엔터키로 전송
+  userInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendUserMessage();
+  }
+});
+
+  //----메세지 화면에 출력-----------------------
+  function addMessage(role, text, sender = null) {
+    emptyState.style.display = "none";
+
+    const row = document.createElement("div"); // 새 div 생성
+    row.className = `message-row ${role}`; //user면 오른쪽, bot이면 왼쪽
+
+    if (role === "bot") {
+      const icon = document.createElement("div");
+      icon.className = "bot-icon";
+      icon.innerHTML = '<img src="./Images/banky.png" style="width:22px; height:32px; border-radius:4px;" />';
+      row.appendChild(icon);
+    }
+
+    const bubble = document.createElement("div");
+    bubble.className = `bubble ${role}`;// user면 파란색, bot이면 회색  
+
+    if (role === "user" && sender) {
+      const name = document.createElement("div");
+      name.className = "sender-name";
+      name.textContent = sender;
+      bubble.appendChild(name);
+    }
+
+    const textNode = document.createElement("div");
+    textNode.textContent = text;
+    bubble.appendChild(textNode);
+
+    row.appendChild(bubble); // 채팅창에 추가
+    messageArea.appendChild(row);
+    messageArea.scrollTop = messageArea.scrollHeight;// 자동 스크롤 아래로
+  }
+
+  // ── 입력정보 패널 렌더링 ──────────────────────────────
+  function renderFormState(state) {
+    formEmpty.style.display = "none";
+    formList.innerHTML = "";
+
+    Object.entries(state).forEach(([key, value]) => {
+      // key: 필드명 (예: sender_name)
+      // value: 채워진 값 (예: "Mark Reyes")
+      // 이걸 서식 패널에 하나씩 행으로 추가
+      const row = document.createElement("div");
+      row.className = "form-row";
+
+      const keyEl = document.createElement("div");
+      keyEl.className = "form-key";
+      keyEl.textContent = key;
+
+      const valEl = document.createElement("div");
+      valEl.className = value ? "form-value" : "form-value empty";
+      valEl.textContent = value ?? "—";
+
+      row.appendChild(keyEl);
+      row.appendChild(valEl);
+      formList.appendChild(row);
+    });
+  }
+
+  //--- page3로 돌아갔을 때 언어가 선택한 언어로 유지되게 하기-------------
+  function goBack() {
+  window.location.href = 'page3.html?lang=' + lang;}
+
+  // ── 서명 팝업 ──────────────────────────────────────
+  function openSignModal() {
+    document.getElementById('sign-modal').style.display = 'flex';
+    const canvas = document.getElementById('sign-canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    let drawing = false;
+    ctx.strokeStyle = '#000';
+    ctx.lineWidth = 2;
+    ctx.lineCap = 'round';
+
+    canvas.onmousedown = (e) => { drawing = true; ctx.beginPath(); ctx.moveTo(e.offsetX, e.offsetY); };
+    canvas.onmousemove = (e) => { if (drawing) { ctx.lineTo(e.offsetX, e.offsetY); ctx.stroke(); } };
+    canvas.onmouseup = () => { drawing = false; };
+    canvas.onmouseleave = () => { drawing = false; };
+  }
+
+  function clearSign() {
+    const canvas = document.getElementById('sign-canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+  }
+
+  async function pdfManager() {
+    const canvas = document.getElementById('sign-canvas');
+    const signBase64 = canvas.toDataURL('image/png').split(',')[1];
+
+    document.getElementById('sign-modal').style.display = 'none';
+
+    const res = await fetch(`${CHATBOT_URL}/api/render`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json","ngrok-skip-browser-warning": "true" },
+      body: JSON.stringify({
+        scenario: currentScenario,
+        form_state: formState,
+        signatures: signBase64,
+        checks: {}
+      }),
+    });
+
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'document.pdf';
+    a.click();
+  }
+
+  //---대화 종료 함수----------------------------------------------------------------
+  async function endConversation() {
+  // 배너 표시
+  document.getElementById('end-banner').style.display = 'block';
+  
+  // 입력창 비활성화
+  document.getElementById('user-input').disabled = true;
+  document.getElementById('send-btn').disabled = true;
+  }
+
+  //---troubleshooting에서 계좌개설 or 해외송금 요청하면 해당 페이지로 이동----------------
+  function renderQuickLinks(links) {
+  const quickLinkMap = {
+    "계좌개설": `chatting.html?scenario=account_opening&lang=${lang}`,
+    "외화송금": `chatting.html?scenario=remittance&lang=${lang}`,
+  };
+
+  const labelTranslations = {
+    "계좌개설": {
+      vn: "Mở tài khoản", ph: "Account Opening", zh: "开户",
+      en: "Account Opening", fr: "Ouverture de compte", th: "เปิดบัญชี", ja: "口座開設"
+    },
+    "외화송금": {
+      vn: "Chuyển tiền quốc tế", ph: "Remittance", zh: "汇款",
+      en: "Remittance", fr: "Virement", th: "โอนเงิน", ja: "送金"
+    },
+  };
+
+  const btnRow = document.createElement('div');
+  btnRow.style.display = 'flex';
+  btnRow.style.gap = '8px';
+  btnRow.style.padding = '4px 16px';
+  btnRow.style.marginLeft = '20px';
+
+  links.forEach((label) => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = labelTranslations[label]?.[lang] || label;
+    btn.onclick = () => window.location.href = quickLinkMap[label];
+    btnRow.appendChild(btn);
+  });
+
+  messageArea.appendChild(btnRow);
+  messageArea.scrollTop = messageArea.scrollHeight;
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,373 @@
+[
+    {
+        "label": "opt_ebanking_user_id",
+        "x_min": 114,
+        "y_min": 114,
+        "x_max": 351,
+        "y_max": 142
+    },
+    {
+        "label": "opt_ebanking_daily_limit",
+        "x_min": 473,
+        "y_min": 131,
+        "x_max": 604,
+        "y_max": 150
+    },
+    {
+        "label": "opt_ebanking_one_time_limit",
+        "x_min": 704,
+        "y_min": 131,
+        "x_max": 836,
+        "y_max": 149
+    },
+    {
+        "label": "opt_phone_daily_limit",
+        "x_min": 473,
+        "y_min": 165,
+        "x_max": 605,
+        "y_max": 182
+    },
+    {
+        "label": "opt_phone_one_time_limit",
+        "x_min": 704,
+        "y_min": 164,
+        "x_max": 836,
+        "y_max": 182
+    },
+    {
+        "label": "opt_ebanking_signature",
+        "x_min": 702,
+        "y_min": 199,
+        "x_max": 839,
+        "y_max": 226
+    },
+    {
+        "label": "opt_e_passbook_note",
+        "x_min": 229,
+        "y_min": 293,
+        "x_max": 356,
+        "y_max": 315
+    },
+    {
+        "label": "opt_card_english_name",
+        "x_min": 506,
+        "y_min": 294,
+        "x_max": 632,
+        "y_max": 315
+    },
+    {
+        "label": "opt_card_signature",
+        "x_min": 703,
+        "y_min": 301,
+        "x_max": 839,
+        "y_max": 325
+    },
+    {
+        "label": "opt_renewal_applicant_signature",
+        "x_min": 703,
+        "y_min": 688,
+        "x_max": 840,
+        "y_max": 714
+    },
+    {
+        "label": "req_depositor_final_signature",
+        "x_min": 500,
+        "y_min": 898,
+        "x_max": 629,
+        "y_max": 924
+    },
+    {
+        "label": "opt_group_ebanking_cat_new",
+        "x_min": 115,
+        "y_min": 95,
+        "x_max": 128,
+        "y_max": 110
+    },
+    {
+        "label": "opt_group_ebanking_cat_add",
+        "x_min": 151,
+        "y_min": 95,
+        "x_max": 163,
+        "y_max": 110
+    },
+    {
+        "label": "opt_group_ebanking_svc_internet",
+        "x_min": 350,
+        "y_min": 96,
+        "x_max": 360,
+        "y_max": 108
+    },
+    {
+        "label": "opt_group_ebanking_svc_phone",
+        "x_min": 473,
+        "y_min": 95,
+        "x_max": 485,
+        "y_max": 111
+    },
+    {
+        "label": "opt_group_ebanking_svc_inquiry",
+        "x_min": 544,
+        "y_min": 98,
+        "x_max": 556,
+        "y_max": 111
+    },
+    {
+        "label": "opt_group_ebanking_svc_quick",
+        "x_min": 694,
+        "y_min": 95,
+        "x_max": 705,
+        "y_max": 110
+    },
+    {
+        "label": "opt_group_ebanking_sec_card",
+        "x_min": 116,
+        "y_min": 143,
+        "x_max": 126,
+        "y_max": 156
+    },
+    {
+        "label": "opt_group_ebanking_sec_otp",
+        "x_min": 201,
+        "y_min": 143,
+        "x_max": 209,
+        "y_max": 157
+    },
+    {
+        "label": "opt_group_ebanking_sec_braille",
+        "x_min": 254,
+        "y_min": 143,
+        "x_max": 266,
+        "y_max": 157
+    },
+    {
+        "label": "opt_group_ebanking_consent_yes",
+        "x_min": 161,
+        "y_min": 165,
+        "x_max": 174,
+        "y_max": 177
+    },
+    {
+        "label": "opt_group_ebanking_consent_no",
+        "x_min": 199,
+        "y_min": 165,
+        "x_max": 211,
+        "y_max": 179
+    },
+    {
+        "label": "req_ebanking_legal_consent",
+        "x_min": 52,
+        "y_min": 187,
+        "x_max": 64,
+        "y_max": 199
+    },
+    {
+        "label": "opt_group_ic_card_cash",
+        "x_min": 51,
+        "y_min": 274,
+        "x_max": 65,
+        "y_max": 290
+    },
+    {
+        "label": "opt_group_ic_card_bankbook",
+        "x_min": 123,
+        "y_min": 275,
+        "x_max": 134,
+        "y_max": 288
+    },
+    {
+        "label": "opt_group_ic_card_k_cash",
+        "x_min": 220,
+        "y_min": 274,
+        "x_max": 233,
+        "y_max": 288
+    },
+    {
+        "label": "opt_group_ic_card_add_withdrawal",
+        "x_min": 331,
+        "y_min": 275,
+        "x_max": 343,
+        "y_max": 289
+    },
+    {
+        "label": "opt_group_ic_card_non_passbook",
+        "x_min": 578,
+        "y_min": 274,
+        "x_max": 590,
+        "y_max": 288
+    },
+    {
+        "label": "opt_group_ic_card_atm",
+        "x_min": 726,
+        "y_min": 276,
+        "x_max": 738,
+        "y_max": 289
+    },
+    {
+        "label": "req_group_purpose_salary",
+        "x_min": 225,
+        "y_min": 536,
+        "x_max": 235,
+        "y_max": 548
+    },
+    {
+        "label": "req_group_purpose_savings",
+        "x_min": 404,
+        "y_min": 536,
+        "x_max": 413,
+        "y_max": 548
+    },
+    {
+        "label": "req_group_purpose_insurance",
+        "x_min": 513,
+        "y_min": 536,
+        "x_max": 524,
+        "y_max": 546
+    },
+    {
+        "label": "req_group_purpose_publicfee",
+        "x_min": 655,
+        "y_min": 536,
+        "x_max": 666,
+        "y_max": 548
+    },
+    {
+        "label": "req_group_purpose_creditcard",
+        "x_min": 225,
+        "y_min": 554,
+        "x_max": 235,
+        "y_max": 563
+    },
+    {
+        "label": "req_group_purpose_loan",
+        "x_min": 340,
+        "y_min": 551,
+        "x_max": 351,
+        "y_max": 563
+    },
+    {
+        "label": "req_group_purpose_business",
+        "x_min": 514,
+        "y_min": 551,
+        "x_max": 525,
+        "y_max": 563
+    },
+    {
+        "label": "req_group_purpose_other",
+        "x_min": 655,
+        "y_min": 550,
+        "x_max": 666,
+        "y_max": 564
+    },
+    {
+        "label": "opt_purpose_other_text",
+        "x_min": 694,
+        "y_min": 550,
+        "x_max": 795,
+        "y_max": 567
+    },
+    {
+        "label": "req_group_source_labor",
+        "x_min": 224,
+        "y_min": 571,
+        "x_max": 235,
+        "y_max": 584
+    },
+    {
+        "label": "req_group_source_retirement",
+        "x_min": 341,
+        "y_min": 571,
+        "x_max": 351,
+        "y_max": 583
+    },
+    {
+        "label": "req_group_source_business",
+        "x_min": 443,
+        "y_min": 571,
+        "x_max": 453,
+        "y_max": 584
+    },
+    {
+        "label": "req_group_source_realestate_lease",
+        "x_min": 532,
+        "y_min": 570,
+        "x_max": 544,
+        "y_max": 583
+    },
+    {
+        "label": "req_group_source_realestate_assign",
+        "x_min": 654,
+        "y_min": 573,
+        "x_max": 666,
+        "y_max": 584
+    },
+    {
+        "label": "req_group_source_financial",
+        "x_min": 224,
+        "y_min": 588,
+        "x_max": 235,
+        "y_max": 600
+    },
+    {
+        "label": "req_group_source_inheritance",
+        "x_min": 400,
+        "y_min": 587,
+        "x_max": 410,
+        "y_max": 600
+    },
+    {
+        "label": "req_group_source_temporary",
+        "x_min": 511,
+        "y_min": 587,
+        "x_max": 523,
+        "y_max": 600
+    },
+    {
+        "label": "req_group_source_other",
+        "x_min": 693,
+        "y_min": 589,
+        "x_max": 706,
+        "y_max": 600
+    },
+    {
+        "label": "opt_source_other_text",
+        "x_min": 732,
+        "y_min": 586,
+        "x_max": 820,
+        "y_max": 604
+    },
+    {
+        "label": "req_group_overseas_yes",
+        "x_min": 772,
+        "y_min": 726,
+        "x_max": 783,
+        "y_max": 738
+    },
+    {
+        "label": "req_group_overseas_no",
+        "x_min": 774,
+        "y_min": 744,
+        "x_max": 783,
+        "y_max": 755
+    },
+    {
+        "label": "req_agree_depositor_protection",
+        "x_min": 773,
+        "y_min": 775,
+        "x_max": 783,
+        "y_max": 788
+    },
+    {
+        "label": "req_agree_ban_borrowed_name",
+        "x_min": 774,
+        "y_min": 819,
+        "x_max": 784,
+        "y_max": 831
+    },
+    {
+        "label": "req_agree_prohibition_assignment",
+        "x_min": 774,
+        "y_min": 864,
+        "x_max": 783,
+        "y_max": 876
+    }
+]

@@ -1,0 +1,19 @@
+# Banky 챗봇 프론트엔드 실행용 Docker Compose
+#
+# 사용법:
+#   docker compose up        (실행 — 백그라운드로 띄우려면 -d 추가)
+#   docker compose down      (종료)
+#
+# 실행 후 브라우저에서  http://localhost:3000  접속
+#
+# ⚠️ 모델·백엔드는 이 컨테이너에 없습니다. 함께 제공된
+#    'banky_model_notebook.ipynb'를 코랩에서 먼저 실행해 주소를 얻은 뒤,
+#    챗봇 화면의 [⚙️ 서버 설정]에 그 주소를 입력하세요. (자세한 건 README 참고)
+
+services:
+  frontend:
+    build: ./frontend
+    container_name: banky-frontend
+    ports:
+      - "3000:80"      # 호스트 3000 → 컨테이너 80(nginx)
+    restart: unless-stopped

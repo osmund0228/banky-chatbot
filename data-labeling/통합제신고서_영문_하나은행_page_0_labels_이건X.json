@@ -1,0 +1,44 @@
+[
+    {
+        "label": "account_holder_name",
+        "x_min": 224,
+        "y_min": 145,
+        "x_max": 522,
+        "y_max": 174
+    },
+    {
+        "label": "account_holder_id_no",
+        "x_min": 620,
+        "y_min": 146,
+        "x_max": 849,
+        "y_max": 174
+    },
+    {
+        "label": "account_holder_cell_phone",
+        "x_min": 225,
+        "y_min": 176,
+        "x_max": 520,
+        "y_max": 211
+    },
+    {
+        "label": "account_holder_email",
+        "x_min": 622,
+        "y_min": 179,
+        "x_max": 849,
+        "y_max": 211
+    },
+    {
+        "label": "account_holder_address_home",
+        "x_min": 225,
+        "y_min": 211,
+        "x_max": 521,
+        "y_max": 246
+    },
+    {
+        "label": "account_holder_address_office",
+        "x_min": 225,
+        "y_min": 248,
+        "x_max": 522,
+        "y_max": 280
+    }
+]

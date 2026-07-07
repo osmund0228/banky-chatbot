@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Select Language</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #b0b0b0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .phone {
+      width: 100%;
+      max-width: 400px;
+      height: 100vh;
+
+      background: #fff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: 48px 32px 40px;
+      flex-shrink: 0;
+    }
+
+    .back-btn {
+      background: none;
+      border: none;
+      font-size: 15px;
+      color: #8E8E93;
+      cursor: pointer;
+      text-align: left;
+      padding: 0;
+      margin-bottom: 20px;
+
+      opacity: 0;
+      transform: translateY(16px);
+      animation: slideUp 0.5s ease forwards 0.1s;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 36px;
+
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.5s ease forwards 0.2s;
+    }
+
+    .flag-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      flex: 1;
+      margin-top: 40px;
+
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 0.5s ease forwards 0.35s;
+    }
+
+    .flag-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .flag-btn {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      border: none;
+      background: #e0e0e0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .flag-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .flag-btn:hover { transform: scale(1.15); }
+
+    .flag-btn.selected {
+      transform: scale(1.15);
+      outline: 3px solid #007AFF;
+      outline-offset: 2px;
+    }
+
+    .select-btn {
+      width: 100%;
+      padding: 18px;
+      background: #007AFF;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      border: none;
+      border-radius: 14px;
+      cursor: pointer;
+      margin-top: 24px;
+      display: none;
+      flex-shrink: 0;
+      transition: opacity 0.2s;
+    }
+
+    .select-btn.visible {
+      display: block;
+    }
+
+    .select-btn:hover { opacity: 0.85; }
+
+    @keyframes slideUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+<div class="phone">
+
+  <button class="back-btn" onclick="window.location.href='index.html'">‹ Back</button>
+
+  <h1>Select the Language</h1>
+
+  <div class="flag-grid">
+    <div class="flag-row">
+      <button class="flag-btn" onclick="selectFlag(this,'vn')">
+        <img src="Images/Vietnam.svg" alt="Vietnam" />
+      </button>
+      <button class="flag-btn" onclick="selectFlag(this,'ph')">
+        <img src="Images/Philippines.svg" alt="Philippines" />
+      </button>
+    </div>
+    <div class="flag-row">
+      <button class="flag-btn" onclick="selectFlag(this,'zh')">
+        <img src="Images/China.svg" alt="China" />
+      </button>
+      <button class="flag-btn" onclick="selectFlag(this,'en')">
+        <img src="Images/US.svg" alt="USA" />
+      </button>
+      <button class="flag-btn" onclick="selectFlag(this,'fr')">
+        <img src="Images/France.svg" alt="France" />
+      </button>
+    </div>
+    <div class="flag-row">
+      <button class="flag-btn" onclick="selectFlag(this,'th')">
+        <img src="Images/Thailand.svg" alt="Thailand" />
+      </button>
+      <button class="flag-btn" onclick="selectFlag(this,'ja')">
+        <img src="Images/Japan.svg" alt="Japan" />
+      </button>
+    </div>
+  </div>
+
+  <button class="select-btn" id="selectBtn" onclick="goNext()">Select</button>
+
+</div>
+
+<script>
+  let selected = null;
+  let selectedLang = null;
+
+  function selectFlag(el, lang) {
+    if (selected) selected.classList.remove('selected');
+    el.classList.add('selected');
+    selected = el;
+    selectedLang = lang;
+    document.getElementById('selectBtn').classList.add('visible');
+  }
+
+  function goNext() {
+    if (!selected) return;
+    window.location.href = 'page3.html?lang=' + selectedLang;
+  }
+
+</script>
+</body>
+</html>

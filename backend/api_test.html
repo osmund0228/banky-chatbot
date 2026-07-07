@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>백엔드 연결 테스트</title>
+<style>
+  :root {
+    --bg: #11131a;
+    --surface: #1a1d27;
+    --surface2: #222634;
+    --border: #2e3344;
+    --text: #e4e7ef;
+    --muted: #8b91a3;
+    --accent: #5b8def;
+    --accent-dim: #2d4373;
+    --user: #2a3550;
+    --bot: #243024;
+    --ok: #4caf7a;
+    --err: #e05a5a;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 20px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  h1 { font-size: 20px; font-weight: 600; margin-bottom: 4px; }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; font-weight: 500; }
+  input[type=text], select {
+    width: 100%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    color: var(--text);
+    padding: 10px 12px;
+    font-size: 14px;
+    font-family: inherit;
+  }
+  input:focus, select:focus { outline: none; border-color: var(--accent); }
+
+  .row { display: flex; gap: 10px; }
+  .row > * { flex: 1; }
+
+  .scenario-btns { display: flex; gap: 8px; margin-top: 4px; }
+  .scenario-btns button {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 9px;
+    border-radius: 7px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .scenario-btns button.active {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: #fff;
+  }
+
+  .send-row { display: flex; gap: 8px; margin-top: 12px; }
+  .send-row input { flex: 1; }
+  .send-row button {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 0 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  .send-row button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .status { font-size: 12px; padding: 4px 0; min-height: 20px; }
+  .status.ok { color: var(--ok); }
+  .status.err { color: var(--err); }
+
+  #chat { display: flex; flex-direction: column; gap: 10px; }
+  .msg { padding: 10px 13px; border-radius: 9px; font-size: 14px; max-width: 80%; white-space: pre-wrap; word-break: break-word; }
+  .msg.user { background: var(--user); align-self: flex-end; }
+  .msg.bot { background: var(--bot); align-self: flex-start; }
+  .msg .who { font-size: 11px; color: var(--muted); margin-bottom: 3px; }
+
+  .section-title { font-size: 13px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .badge { font-size: 11px; background: var(--surface2); color: var(--muted); padding: 2px 8px; border-radius: 20px; }
+
+  pre {
+    background: #0d0f15;
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 12px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #b8c0d4;
+    overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 240px;
+    overflow-y: auto;
+  }
+  .io-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 640px) { .io-grid { grid-template-columns: 1fr; } .row { flex-direction: column; } }
+
+  .form-state-box { font-family: var(--mono); font-size: 12px; }
+  .field-row { display: flex; justify-content: space-between; padding: 3px 0; border-bottom: 1px solid var(--border); }
+  .field-row .k { color: var(--muted); }
+  .field-row .v { color: var(--ok); }
+  .field-row .v.empty { color: #555b6e; }
+  .complete-banner { background: var(--accent-dim); color: #fff; padding: 8px 12px; border-radius: 7px; font-size: 13px; text-align: center; margin-top: 10px; }
+  .hint { font-size: 11px; color: var(--muted); margin-top: 6px; }
+</style>
+</head>
+<body>
+
+<h1>백엔드 연결 테스트</h1>
+<p class="sub">프론트 없이 우리 API가 브라우저에서 실제로 불리는지 확인하는 페이지입니다.</p>
+
+<!-- 설정 -->
+<div class="panel">
+  <label>서버 주소 (ngrok 주소 붙여넣기)</label>
+  <input type="text" id="baseUrl" placeholder="https://xxxx.ngrok-free.dev" value="">
+  <div class="hint">베이스 주소만! (예: https://xxxx.ngrok-free.dev) — 뒤에 /api/chat 붙이지 마세요. 자동으로 붙습니다.</div>
+
+  <div style="margin-top:14px">
+    <label>시나리오 (버튼 = scenario 값)</label>
+    <div class="scenario-btns">
+      <button data-sc="account_opening">계좌개설</button>
+      <button data-sc="remittance" class="active">외화송금</button>
+      <button data-sc="troubleshooting">일반상담</button>
+    </div>
+  </div>
+
+  <div style="margin-top:14px">
+    <label>언어 (프론트가 선택받는 값 = language)</label>
+    <select id="langSelect">
+      <option value="">(자동 감지 - 비워둠)</option>
+      <option value="Korean">한국어 (Korean)</option>
+      <option value="English">영어 (English)</option>
+      <option value="Chinese">중국어 (Chinese)</option>
+      <option value="Japanese">일본어 (Japanese)</option>
+      <option value="Vietnamese">베트남어 (Vietnamese)</option>
+      <option value="Indonesian">인니어 (Indonesian)</option>
+    </select>
+    <div class="hint">언어를 고르면 숫자만 입력해도 그 언어로 답합니다. (자동감지 두면 옛 방식)</div>
+  </div>
+
+  <div class="send-row">
+    <input type="text" id="msgInput" placeholder="메시지 입력 (예: Tôi muốn gửi 1000 USD)" onkeydown="if(event.key==='Enter')send()">
+    <button id="sendBtn" onclick="send()">전송</button>
+  </div>
+  <div class="status" id="status"></div>
+
+  <div style="display:flex; gap:8px; margin-top:4px">
+    <button onclick="checkHealth()" style="flex:0 0 auto; background:var(--surface2); border:1px solid var(--border); color:var(--muted); padding:7px 14px; border-radius:7px; font-size:12px; cursor:pointer">서버 상태 확인</button>
+    <button onclick="resetAll()" style="flex:0 0 auto; background:var(--surface2); border:1px solid var(--border); color:var(--muted); padding:7px 14px; border-radius:7px; font-size:12px; cursor:pointer">초기화</button>
+  </div>
+</div>
+
+<!-- 대화 -->
+<div class="panel">
+  <div class="section-title">💬 대화 <span class="badge" id="scenarioBadge">remittance</span></div>
+  <div id="chat"></div>
+  <div id="completeBanner"></div>
+</div>
+
+<!-- 현재 서식 상태 -->
+<div class="panel">
+  <div class="section-title">📋 현재 서식 상태 <span class="badge">매 요청에 다시 전송됨</span></div>
+  <div class="form-state-box" id="formState"><span style="color:var(--muted)">아직 없음</span></div>
+</div>
+
+<!-- 원시 요청/응답 -->
+<div class="panel">
+  <div class="section-title">🔍 마지막 요청 / 응답 (원본 JSON)</div>
+  <div class="io-grid">
+    <div>
+      <label>📤 보낸 것 (Request)</label>
+      <pre id="reqDump">—</pre>
+    </div>
+    <div>
+      <label>📥 받은 것 (Response)</label>
+      <pre id="resDump">—</pre>
+    </div>
+  </div>
+</div>
+
+<script>
+  let scenario = "remittance";
+  let formState = {};
+
+  // 시나리오 버튼
+  document.querySelectorAll(".scenario-btns button").forEach(btn => {
+    btn.onclick = () => {
+      document.querySelectorAll(".scenario-btns button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      scenario = btn.dataset.sc;
+      document.getElementById("scenarioBadge").textContent = scenario;
+      resetConversation();
+    };
+  });
+
+  function setStatus(msg, type) {
+    const el = document.getElementById("status");
+    el.textContent = msg;
+    el.className = "status " + (type || "");
+  }
+
+  function addMsg(who, text) {
+    const chat = document.getElementById("chat");
+    const div = document.createElement("div");
+    div.className = "msg " + who;
+    div.innerHTML = `<div class="who">${who === "user" ? "나" : "챗봇"}</div>${escapeHtml(text)}`;
+    chat.appendChild(div);
+    div.scrollIntoView({ behavior: "smooth", block: "end" });
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  }
+
+  function renderFormState() {
+    const box = document.getElementById("formState");
+    const keys = Object.keys(formState);
+    if (keys.length === 0) {
+      box.innerHTML = '<span style="color:var(--muted)">아직 없음</span>';
+      return;
+    }
+    box.innerHTML = keys.map(k => {
+      const v = formState[k];
+      const empty = v === null || v === "" || v === undefined;
+      return `<div class="field-row"><span class="k">${k}</span><span class="v ${empty ? "empty" : ""}">${empty ? "(비어있음)" : escapeHtml(v)}</span></div>`;
+    }).join("");
+  }
+
+  function baseUrl() {
+    let url = document.getElementById("baseUrl").value.trim();
+    // 끝의 / 제거
+    url = url.replace(/\/$/, "");
+    // 실수로 /api/chat, /api/render 등 경로가 붙어오면 떼어냄 (베이스만 남김)
+    url = url.replace(/\/api\/(chat|render|ocr-arc)$/, "");
+    url = url.replace(/\/$/, "");
+    return url;
+  }
+
+  async function checkHealth() {
+    const url = baseUrl();
+    if (!url) { setStatus("서버 주소를 먼저 입력하세요", "err"); return; }
+    setStatus("확인 중...", "");
+    try {
+      const r = await fetch(url + "/health", {
+        headers: { "ngrok-skip-browser-warning": "true" }
+      });
+      const data = await r.json();
+      setStatus("서버 정상 ✓ (extractor: " + data.extractor + ", consultant: " + data.consultant + ")", "ok");
+    } catch (e) {
+      setStatus("연결 실패: " + e.message + " (주소 확인 / 서버 켜짐 확인)", "err");
+    }
+  }
+
+  async function send() {
+    const url = baseUrl();
+    const msg = document.getElementById("msgInput").value.trim();
+    if (!url) { setStatus("서버 주소를 먼저 입력하세요", "err"); return; }
+    if (!msg) { setStatus("메시지를 입력하세요", "err"); return; }
+
+    addMsg("user", msg);
+    document.getElementById("msgInput").value = "";
+    document.getElementById("sendBtn").disabled = true;
+    setStatus("요청 보내는 중...", "");
+
+    const payload = {
+      scenario: scenario,
+      user_message: msg,
+      current_form_state: formState,
+      history: [],
+      language: document.getElementById("langSelect").value
+    };
+    document.getElementById("reqDump").textContent = JSON.stringify(payload, null, 2);
+
+    try {
+      const r = await fetch(url + "/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "ngrok-skip-browser-warning": "true"
+        },
+        body: JSON.stringify(payload)
+      });
+      const data = await r.json();
+      document.getElementById("resDump").textContent = JSON.stringify(data, null, 2);
+
+      if (!r.ok) {
+        setStatus("서버 오류 " + r.status + ": " + (data.detail || ""), "err");
+        addMsg("bot", "[오류] " + (data.detail || r.status));
+      } else {
+        addMsg("bot", data.bot_reply || "(빈 응답)");
+        // 상태 누적: 받은 updated_form_state를 다음 요청에 그대로 사용
+        formState = data.updated_form_state || formState;
+        renderFormState();
+        setStatus("응답 받음 ✓", "ok");
+
+        const banner = document.getElementById("completeBanner");
+        if (data.form_complete) {
+          banner.innerHTML = '<div class="complete-banner">✅ 필수 항목 완료 — 실제 서비스라면 여기서 "PDF 보기" 버튼 활성화</div>';
+        } else {
+          banner.innerHTML = "";
+        }
+      }
+    } catch (e) {
+      setStatus("연결 실패: " + e.message, "err");
+      document.getElementById("resDump").textContent = "오류: " + e.message;
+    } finally {
+      document.getElementById("sendBtn").disabled = false;
+    }
+  }
+
+  function resetConversation() {
+    formState = {};
+    document.getElementById("chat").innerHTML = "";
+    document.getElementById("completeBanner").innerHTML = "";
+    document.getElementById("reqDump").textContent = "—";
+    document.getElementById("resDump").textContent = "—";
+    renderFormState();
+    setStatus("");
+  }
+
+  function resetAll() {
+    resetConversation();
+    setStatus("초기화됨", "ok");
+  }
+
+  renderFormState();
+</script>
+</body>
+</html>

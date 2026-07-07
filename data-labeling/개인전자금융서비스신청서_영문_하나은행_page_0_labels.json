@@ -1,0 +1,345 @@
+[
+    {
+        "label": "req_customer_name",
+        "x_min": 173,
+        "y_min": 234,
+        "x_max": 456,
+        "y_max": 260
+    },
+    {
+        "label": "req_customer_birth_date",
+        "x_min": 576,
+        "y_min": 235,
+        "x_max": 829,
+        "y_max": 259
+    },
+    {
+        "label": "req_customer_address",
+        "x_min": 172,
+        "y_min": 261,
+        "x_max": 457,
+        "y_max": 286
+    },
+    {
+        "label": "opt_customer_home_phone",
+        "x_min": 577,
+        "y_min": 261,
+        "x_max": 830,
+        "y_max": 286
+    },
+    {
+        "label": "opt_customer_email",
+        "x_min": 173,
+        "y_min": 287,
+        "x_max": 457,
+        "y_max": 310
+    },
+    {
+        "label": "req_customer_mobile_phone",
+        "x_min": 577,
+        "y_min": 289,
+        "x_max": 831,
+        "y_max": 309
+    },
+    {
+        "label": "req_user_id",
+        "x_min": 173,
+        "y_min": 312,
+        "x_max": 576,
+        "y_max": 335
+    },
+    {
+        "label": "opt_safety_card_serial",
+        "x_min": 322,
+        "y_min": 348,
+        "x_max": 430,
+        "y_max": 367
+    },
+    {
+        "label": "opt_otp_manufacturer",
+        "x_min": 552,
+        "y_min": 347,
+        "x_max": 656,
+        "y_max": 369
+    },
+    {
+        "label": "opt_otp_serial",
+        "x_min": 718,
+        "y_min": 348,
+        "x_max": 820,
+        "y_max": 369
+    },
+    {
+        "label": "opt_otp_fee_withdrawal_account",
+        "x_min": 574,
+        "y_min": 388,
+        "x_max": 642,
+        "y_max": 410
+    },
+    {
+        "label": "req_daily_limit_internet",
+        "x_min": 348,
+        "y_min": 413,
+        "x_max": 524,
+        "y_max": 436
+    },
+    {
+        "label": "opt_daily_limit_tele",
+        "x_min": 622,
+        "y_min": 412,
+        "x_max": 800,
+        "y_max": 438
+    },
+    {
+        "label": "req_one_time_limit_internet",
+        "x_min": 349,
+        "y_min": 438,
+        "x_max": 524,
+        "y_max": 460
+    },
+    {
+        "label": "opt_one_time_limit_tele",
+        "x_min": 623,
+        "y_min": 438,
+        "x_max": 800,
+        "y_max": 462
+    },
+    {
+        "label": "req_application_month",
+        "x_min": 205,
+        "y_min": 1126,
+        "x_max": 240,
+        "y_max": 1144
+    },
+    {
+        "label": "req_application_day",
+        "x_min": 252,
+        "y_min": 1126,
+        "x_max": 291,
+        "y_max": 1143
+    },
+    {
+        "label": "req_application_year",
+        "x_min": 300,
+        "y_min": 1124,
+        "x_max": 346,
+        "y_max": 1143
+    },
+    {
+        "label": "req_applicant_signature",
+        "x_min": 466,
+        "y_min": 1137,
+        "x_max": 619,
+        "y_max": 1165
+    },
+    {
+        "label": "opt_otp_fee_applicant_signature",
+        "x_min": 695,
+        "y_min": 388,
+        "x_max": 829,
+        "y_max": 412
+    },
+    {
+        "label": "req_group_request_new",
+        "x_min": 176,
+        "y_min": 196,
+        "x_max": 187,
+        "y_max": 210
+    },
+    {
+        "label": "req_group_request_acc_add_remove",
+        "x_min": 217,
+        "y_min": 199,
+        "x_max": 224,
+        "y_max": 210
+    },
+    {
+        "label": "req_group_request_password",
+        "x_min": 337,
+        "y_min": 198,
+        "x_max": 347,
+        "y_max": 211
+    },
+    {
+        "label": "req_group_request_security_device",
+        "x_min": 516,
+        "y_min": 199,
+        "x_max": 526,
+        "y_max": 211
+    },
+    {
+        "label": "req_group_request_change_pin",
+        "x_min": 177,
+        "y_min": 217,
+        "x_max": 187,
+        "y_max": 229
+    },
+    {
+        "label": "req_group_request_terminate",
+        "x_min": 251,
+        "y_min": 215,
+        "x_max": 260,
+        "y_max": 230
+    },
+    {
+        "label": "req_group_request_change_limit",
+        "x_min": 316,
+        "y_min": 215,
+        "x_max": 328,
+        "y_max": 227
+    },
+    {
+        "label": "req_group_request_release_suspension",
+        "x_min": 440,
+        "y_min": 215,
+        "x_max": 448,
+        "y_max": 226
+    },
+    {
+        "label": "req_group_request_loss_damage",
+        "x_min": 588,
+        "y_min": 215,
+        "x_max": 598,
+        "y_max": 229
+    },
+    {
+        "label": "req_group_request_other",
+        "x_min": 699,
+        "y_min": 217,
+        "x_max": 708,
+        "y_max": 227
+    },
+    {
+        "label": "opt_group_phone_type_feature",
+        "x_min": 663,
+        "y_min": 289,
+        "x_max": 670,
+        "y_max": 299
+    },
+    {
+        "label": "opt_group_phone_type_smart",
+        "x_min": 720,
+        "y_min": 288,
+        "x_max": 727,
+        "y_max": 298
+    },
+    {
+        "label": "opt_group_phone_type_budget",
+        "x_min": 773,
+        "y_min": 288,
+        "x_max": 780,
+        "y_max": 299
+    },
+    {
+        "label": "opt_group_mobile_carrier_skt",
+        "x_min": 724,
+        "y_min": 301,
+        "x_max": 731,
+        "y_max": 310
+    },
+    {
+        "label": "opt_group_mobile_carrier_lgu",
+        "x_min": 747,
+        "y_min": 301,
+        "x_max": 755,
+        "y_max": 310
+    },
+    {
+        "label": "opt_group_mobile_carrier_kt",
+        "x_min": 777,
+        "y_min": 302,
+        "x_max": 784,
+        "y_max": 311
+    },
+    {
+        "label": "opt_group_mobile_carrier_other",
+        "x_min": 799,
+        "y_min": 301,
+        "x_max": 806,
+        "y_max": 311
+    },
+    {
+        "label": "opt_group_id_cert_safety_card",
+        "x_min": 199,
+        "y_min": 354,
+        "x_max": 208,
+        "y_max": 365
+    },
+    {
+        "label": "opt_group_id_cert_otp",
+        "x_min": 442,
+        "y_min": 354,
+        "x_max": 451,
+        "y_max": 364
+    },
+    {
+        "label": "opt_group_id_cert_other",
+        "x_min": 199,
+        "y_min": 370,
+        "x_max": 208,
+        "y_max": 379
+    },
+    {
+        "label": "opt_group_svc_row1_category_add",
+        "x_min": 71,
+        "y_min": 567,
+        "x_max": 80,
+        "y_max": 580
+    },
+    {
+        "label": "opt_group_svc_row1_category_remove",
+        "x_min": 106,
+        "y_min": 568,
+        "x_max": 114,
+        "y_max": 580
+    },
+    {
+        "label": "opt_group_svc_row1_category_change",
+        "x_min": 71,
+        "y_min": 586,
+        "x_max": 80,
+        "y_max": 596
+    },
+    {
+        "label": "opt_group_svc_row1_req_withdraw_acc",
+        "x_min": 166,
+        "y_min": 567,
+        "x_max": 175,
+        "y_max": 579
+    },
+    {
+        "label": "opt_group_svc_row1_req_deposit_acc",
+        "x_min": 322,
+        "y_min": 568,
+        "x_max": 331,
+        "y_max": 579
+    },
+    {
+        "label": "opt_group_svc_row1_req_net_smart",
+        "x_min": 463,
+        "y_min": 569,
+        "x_max": 473,
+        "y_max": 580
+    },
+    {
+        "label": "opt_svc_row1_bank_name",
+        "x_min": 522,
+        "y_min": 564,
+        "x_max": 568,
+        "y_max": 604
+    },
+    {
+        "label": "opt_svc_row1_account_no",
+        "x_min": 569,
+        "y_min": 563,
+        "x_max": 665,
+        "y_max": 604
+    },
+    {
+        "label": "opt_svc_row1_signature",
+        "x_min": 741,
+        "y_min": 565,
+        "x_max": 831,
+        "y_max": 602
+    }
+]
