@@ -1,44 +1,64 @@
-# Banky — 다국어 은행 챗봇
+# sLLM 기반 은행용 다국어 대화형 금융 서식 자동완성 챗봇 '뱅키'
 
-외국인을 위한 다국어(한/영/중/일/베트남/태국/프랑스) 은행 챗봇입니다.
-계좌 개설 서식 자동완성, 외화 송금 신청서 작성, 일반 은행 상담을 지원합니다.
-대학생 학회 인사이트(Insight) 2차 인사이콘(경진대회) 프로젝트입니다.
+금융권 특유의 강력한 보안 규제와 망분리 환경에서도 외부 인터넷 연결 없이 로컬에서 독립적으로 구동되는 다국어(한/영/중/일/베트남/태국/프랑스) 은행 상담 챗봇입니다. 계좌 개설·외화 송금 서식 자동완성과 일반 은행 상담을 지원합니다.
 
-## 데모 영상
+## 개요
+
+- **소속**: 서강대학교 경영데이터사이언스 학회 INSIGHT
+- **대회/기간**: 2026년 1학기 2차 인사이콘(학회 내부 경진대회), 2026년 5~6월 진행
+- **목표**: 금융권 특유의 강력한 보안 규제 및 망분리 환경에서도 외부 인터넷 연결 없이 로컬에서 독립적으로 구동되는 실무 맞춤형 챗봇 솔루션 구축
+
+## 담당 역할
+
+프로젝트 리더 (PM 및 모델링) — 컴퓨터공학(망분리 백엔드/Docker 배포), 디자인(UI/UX), 경영(스토리텔링) 전공 팀원들의 역할을 조율하며 프로젝트 전 사이클 리딩
+
+## 데모
 
 - 계좌 개설 데모: https://drive.google.com/file/d/174QI-FJngHqOCLydkizM68wDtW9eVcMN/view?usp=drive_link
 - 해외 송금 데모: https://youtu.be/LCpXjMtz130
 - 일반 채팅 데모: https://youtu.be/verNWZtXRYA
 
-## 구조
+(Colab GPU가 필요한 구조라 상시 라이브 배포는 없고, 로컬 Docker 패키지로 직접 체험 가능합니다 — 아래 Getting Started 참고)
 
-```
-banky-chatbot/
-├── frontend/         # 챗봇 웹 화면 (Docker + nginx)
-├── backend/          # FastAPI 백엔드 — 서식 인식/작성, RAG 상담, LLM 연동
-├── model/            # 모델 파인튜닝 · RAG 프롬프트 엔지니어링 · 서빙 노트북
-├── data-labeling/    # 은행 서식 위치 라벨링 도구 및 라벨 데이터
-├── persona/          # 페르소나 기반 대화 스크립트
-├── docs/             # 발표/데모 자료
-└── docker-compose.yml
-```
+## 주요 내용 및 성과
+
+- **비즈니스 로직 기획 및 데이터 라벨링**: 서식 자동완성 로직을 기획하고, 은행 서식(계좌개설, 외화송금, 전자금융서비스 등)의 항목별 위치를 직접 라벨링·전처리해 학습 기반 데이터 구축
+- **sLLM 파인튜닝 및 RAG 파이프라인 구축**: 대규모 언어 모델 대신 가벼운 Qwen2.5-7B-Instruct 모델을 LoRA로 파인튜닝(Colab Pro 결제 후 금융상담·말뭉치 데이터로 학습)하고, 프롬프트 엔지니어링과 은행 규정집 기반 RAG 파이프라인 구축
+- **다양한 전공의 팀원 리딩 및 전 사이클 매니징**: 컴퓨터공학(망분리 백엔드/Docker 배포), 디자인(UI/UX), 경영(스토리텔링) 전공 팀원들의 역할을 유기적으로 조율하며 프로젝트 전 사이클 리딩
+
+## 파이프라인
+
+1. **데이터 라벨링** (`data-labeling/`) — 은행 서식 항목별 위치 라벨링 및 전처리
+2. **sLLM 파인튜닝 & RAG 구축** (`model/`) — Qwen2.5-7B-Instruct LoRA 파인튜닝(Colab Pro GPU), 프롬프트 엔지니어링, 규정집 기반 RAG 파이프라인
+3. **백엔드/프론트엔드 구현** (`backend/`, `frontend/`) — FastAPI 기반 서식 인식·작성·RAG 상담 API, Docker+nginx 웹 화면
+4. **배포 패키징** (`docker-compose.yml`) — 로컬 Docker 배포 패키지 구성
 
 ## 아키텍처
 
-전체 구조는 **웹 화면(Docker)** 이 **모델 서버(Colab, GPU)** 에 연결되어 동작합니다.
+금융권 망분리 요구사항 때문에, 시스템을 **웹 화면(로컬 Docker)** 과 **모델 서버(Colab, GPU)** 두 축으로 분리했습니다. GPU가 필요한 파인튜닝 모델은 Colab에서 띄우고, 사용자가 실제로 보는 챗봇 화면은 완전히 로컬 Docker 컨테이너에서 동작하며 발급된 주소로만 모델 서버와 통신합니다.
 
-1. `model/banky_model_notebook.ipynb` 를 Colab(T4 GPU)에서 실행 → 백엔드+모델 서버 기동, 외부 접속 주소 발급
-2. `docker compose up` 으로 `frontend/` 실행 → `http://localhost:3000` 에서 챗봇 화면 접속
-3. 챗봇 화면의 서버 설정에 1번에서 발급된 주소 입력
+모델 파인튜닝은 `model/파인튜닝.ipynb`, RAG 기반 규정집 프롬프트 엔지니어링은 `model/프롬프트_엔지니어링_규정집_RAG.ipynb` 에서 진행했습니다.
 
-모델 파인튜닝은 `model/파인튜닝.ipynb`, RAG 기반 규정집 프롬프트 엔지니어링은
-`model/프롬프트_엔지니어링_규정집_RAG.ipynb` 에서 진행했습니다.
+## 데이터
+
+- `data-labeling/`: 계좌개설신청서, 외화송금신청서, 전자금융서비스신청서 등 은행 서식의 항목별 위치를 직접 라벨링한 데이터
+- 파인튜닝 데이터: 금융상담 데이터 + 말뭉치(번역) 데이터, Colab Pro로 GPU를 확보해 학습 진행
 
 ## 포함하지 않은 것
 
 - 파인튜닝된 LoRA 모델 가중치(`adapter_model.safetensors`) 및 RAG 벡터스토어 — 코드 산출물이라 용량(각 150MB+) 문제로 제외
-- 데모 원본 영상 — 용량 문제로 제외, 유튜브 링크로 대체함
+- 데모 원본 영상 — 용량 문제로 제외, 유튜브/드라이브 링크로 대체
+
+## 결과
+
+2026년 1학기 2차 인사이콘(학회 내부 경진대회) 2위 · 최우수상 수상
 
 ## 기술 스택
 
-FastAPI, LangChain(RAG), LoRA Fine-tuning, HuggingFace Transformers, OCR, Docker/nginx
+FastAPI, LangChain(RAG), Qwen2.5-7B-Instruct(LoRA Fine-tuning, Unsloth), Qwen2.5-3B-Instruct(백엔드 보조 모델), HuggingFace Transformers, OCR, Docker/nginx
+
+## Getting Started
+
+1. `model/banky_model_notebook.ipynb`를 Colab(GPU)에서 실행 → 파인튜닝된 모델 + 백엔드 기동, 외부 접속 주소 발급
+2. `docker compose up`으로 `frontend/` 실행 → `http://localhost:3000`에서 챗봇 화면 접속
+3. 챗봇 화면의 서버 설정에 1번에서 발급된 주소 입력
