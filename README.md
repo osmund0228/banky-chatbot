@@ -18,6 +18,7 @@
   - 계좌 개설: https://drive.google.com/file/d/174QI-FJngHqOCLydkizM68wDtW9eVcMN/view?usp=drive_link
   - 해외 송금: https://youtu.be/LCpXjMtz130
   - 일반 채팅: https://youtu.be/verNWZtXRYA
+- 발표자료: `docs/2차_인사이콘-뱅키_발표자료.pdf` (영상이 포함된 페이지는 제외했습니다 — 영상은 위 링크로 확인)
 
 (Colab GPU가 필요한 구조라 상시 라이브 배포는 없고, 로컬 Docker 패키지로 직접 체험 가능합니다 — 아래 Getting Started 참고)
 
