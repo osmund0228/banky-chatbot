@@ -14,7 +14,7 @@
 
 ## 데모 및 발표자료
 
-- 시연 영상: 
+- 데모 시연 영상: 
   - 계좌 개설: https://drive.google.com/file/d/174QI-FJngHqOCLydkizM68wDtW9eVcMN/view?usp=drive_link
   - 해외 송금: https://youtu.be/LCpXjMtz130
   - 일반 채팅: https://youtu.be/verNWZtXRYA
