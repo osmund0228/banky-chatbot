@@ -12,7 +12,7 @@
 
 프로젝트 리더 (PM 및 모델링) — 컴퓨터공학(망분리 백엔드/Docker 배포), 디자인(UI/UX), 경영(스토리텔링) 전공 팀원들의 역할을 조율하며 프로젝트 전 사이클 리딩
 
-## 데모
+## 데모 및 발표자료
 
 - 시연 영상: 
   - 계좌 개설: https://drive.google.com/file/d/174QI-FJngHqOCLydkizM68wDtW9eVcMN/view?usp=drive_link
